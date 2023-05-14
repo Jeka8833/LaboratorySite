@@ -14,6 +14,8 @@ const voltmeter = new Voltmeter(voltmeterElement);
 powerSupply.setAutoHeight(true);
 voltmeter.setAutoHeight(true);
 
+powerSupply.powerBtn.backgroundColor = "rgb(0,0,0, 0.2)"
+powerSupply.powerBtn.highlightColor = "rgb(0,0,0, 0.5)"
 powerSupply.addListener(elementChange);
 
 variantElement.addEventListener("change", () => {
@@ -32,9 +34,10 @@ d1DiodeElement.addEventListener("change", elementChange);
 d2DiodeElement.addEventListener("change", elementChange);
 
 function elementChange() {
-    backLab1(powerSupply, voltmeter, getVariant(), p1SwitchElement.checked, invertSupplyElement.checked,
+    back(powerSupply, voltmeter, getVariant(), p1SwitchElement.checked, invertSupplyElement.checked,
         r2ResistorElement.checked, d2DiodeElement.checked);
 }
+
 elementChange();
 
 function getVariant() {
@@ -46,6 +49,16 @@ function getVariant() {
     variantElement.classList.add("is-invalid");
 
     return 0;
+}
+
+function back(powerSupply, voltmeter, variant, p1, invert, useR2, useD2) {
+    voltmeter.setError(((199 * variant) % 5) - 2.5);
+
+    if (p1) {
+
+    } else {
+        voltmeter.setVoltage(powerSupply.getVoltage());
+    }
 }
 
 getVariant();
